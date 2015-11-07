@@ -1,13 +1,16 @@
 
-import java.util.Date
-import Manifestation._
+package fr.univ.nantes.roomanager
 
-class Reservation(sr:Salle,mr:Materiel,r:Int,d:Date,m:Float,man:Manifestation) {
-  var salleRes:Salle = sr
-  var matRes:Materiel = mr
-  var refResa:Int = r
-  var dateResa:Date = d
-  var montant:Float = m
-  var tManifestation:Manifestation = man
-  //var duree : Duree
+import java.util.Date
+
+import fr.univ.nantes.roomanager.Duree.Duree
+import fr.univ.nantes.roomanager.Manifestation.Manifestation
+
+class Reservation(var ref_resa: Int,
+                  var date_resa: Date,
+                  var montant: Float,
+                  var salle: Salle,
+                  var manifestation: Manifestation,
+                  var duree: Duree) {
+  var materiels: Set[Materiel] = Set() // mobile
 }

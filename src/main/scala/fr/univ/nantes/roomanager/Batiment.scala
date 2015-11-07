@@ -1,8 +1,8 @@
 
-class Batiment(num:Int,a:Adresse,nb:Int){
-  var numBat : Int = num
-  var salles = List()
-  var addr : Adresse = a
-  var nbSalle : Int = nb
-  
+package fr.univ.nantes.roomanager
+
+class Batiment(var no_bat: Int,
+               var nom: String,
+               var adresse: Adresse) {
+  var salles: Set[Salle] = Set()
 }

@@ -1,7 +1,8 @@
 
-import TypeMateriel._
+package fr.univ.nantes.roomanager
 
-class Materiel(c:Int,tm:TypeMateriel) {
-  var code_inv : Int = c
-  var tMateriel:TypeMateriel = tm
+import fr.univ.nantes.roomanager.TypeMateriel.TypeMateriel
+
+class Materiel(var code_inv: Int,
+               var type_mat: TypeMateriel) {
 }

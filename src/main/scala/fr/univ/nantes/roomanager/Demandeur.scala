@@ -1,11 +1,13 @@
 
-import Origine._
-import Titre._
+package fr.univ.nantes.roomanager
 
-class Demandeur(d:Int,n:String,a:Adresse,t:Titre,o:Origine) {
-  var numDem:Int = d
-  var nom:String = n
-  var adrr:Adresse = a
-  var titreDem:Titre = t
-  var origineDem:Origine = o
+import fr.univ.nantes.roomanager.Origine.Origine
+import fr.univ.nantes.roomanager.Titre.Titre
+
+class Demandeur(var no_dem: Int,
+                var nom: String,
+                var adresse: Adresse,
+                var origine: Origine,
+                var titre: Titre) {
+  var reservations: Set[Reservation] = Set()
 }

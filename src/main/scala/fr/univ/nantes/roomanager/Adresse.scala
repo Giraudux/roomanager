@@ -1,7 +1,8 @@
 
-class Adresse(n:Int,r:String,c:Int,v:String) {
-  var numero : Int = n
-  var rue : String = r
-  var codePostal : Int = c
-  var ville : String = v
+package fr.univ.nantes.roomanager
+
+class Adresse(var no: String,
+              var adresse: String,
+              var code: String,
+              var ville: String) {
 }
