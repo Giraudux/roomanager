@@ -2,50 +2,87 @@
 package fr.univ.nantes.roomanager
 
 class Systeme {
+  // use storage manager interface ?
   var batiments = Set[Batiment]()
-  var typeSalle = Set("Cuisine", "Toilettes", "Salon")
-  var typeMateriel = Set("Tableau", "RetroProjecteur", "MoyensVideo")
+  var demandeurs = Set[Demandeur]()
+  var typeSalle = Set[String]("Cuisine", "Toilettes", "Salon")
+  var typeMateriel = Set[String]("Tableau", "RetroProjecteur", "MoyensVideo")
+  var typeManifestation = Set[String]("Reunion", "Banquet", "Spectacle")
+  var typeDuree = Set[String]("DemiJournee", "Soiree")
+  var typeTitre = Set[String]("Particulier", "Association", "Entreprise")
+  var typeOrigine = Set[String]("Resident", "NonResident")
 
-  def reserverSalle() = false
+  //@TODO: reservation, suppression (suppression batiment/salle/demandeur => suppression reservation)
+  //@TODO: gestion tarifs, planning, facture +=//; faire uml
+  //@TODO: tests/docs
+   def reserverSalle(demandeur: Demandeur, reservation: Reservation) = false
 
-  def consulterReservations() = false
-
-  def annulerReservation() = false
-
-  def ajouterSalle(s: Salle) = {
-    val b = rechercherBatiment(s.no_bat)
-    b.get.salles += s
+  def rechercherReservations(predicateDem: Demandeur => Boolean, predicateRes: Reservation => Boolean): Set[Reservation] = {
+    var retourRes = Set[Reservation]()
+    demandeurs.find(predicateDem).foreach((d: Demandeur) => d.reservations.find(predicateRes).foreach((r: Reservation) => retourRes += r))
+    retourRes
   }
 
-  def rechercherSalle(b: Batiment, f: Salle => Boolean) = {
-    val bat = rechercherBatiment(b.no_bat)
-    bat.get.salles.filter(f)
+  def annulerReservation(predicateDem: Demandeur => Boolean, predicateRes: Reservation => Boolean) = {
+    demandeurs.find(predicateDem).foreach((d: Demandeur) => d.reservations.find(predicateRes).foreach((r: Reservation) => d.reservations -= r))
   }
 
-  def ajouterMaterielSalle(s: Salle, m: Materiel) = s.materiels += m
+  def ajouterSalle(batiment: Batiment, salle: Salle) = {
+    batiment.salles += salle
+    batiments += batiment
+  }
 
-  def supprimerMaterielSalle(s: Salle, m: Materiel) = s.materiels -= m
+  def rechercherSalle(predicateBat: Batiment => Boolean, predicateSalle: Salle => Boolean): Set[Salle] = {
+    var resSalles = Set[Salle]()
+    batiments.find(predicateBat).foreach((b: Batiment) => b.salles.find(predicateSalle).foreach((s: Salle) => resSalles += s))
+    resSalles
+  }
 
-  def supprimerSalle(s: Salle) = rechercherBatiment(s.no_bat).get.salles -= s
+  def ajouterMaterielSalle(salle: Salle, materiel: Materiel) = salle.materiels += materiel
+
+  def supprimerMaterielSalle(salle: Salle, materiel: Materiel) = salle.materiels -= materiel
+
+  def supprimerSalle(predicateBat: Batiment => Boolean, predicateSalle: Salle => Boolean) = batiments.find(predicateBat).foreach((b: Batiment) => b.salles.find(predicateSalle).foreach((s: Salle) => b.salles -= s))
 
   def ajouterBatiment(b: Batiment) = batiments += b
 
-  def rechercherBatiment(no_bat: Int) = batiments.find((b: Batiment) => b.no_bat == no_bat)
+  def rechercherBatiment(predicate: Batiment => Boolean) = batiments.find(predicate)
 
-  def modiferBatiment(no_bat: Int, nom: String, adresse: Adresse) = {
-    val b = rechercherBatiment(no_bat)
-    b.get.nom = nom
-    b.get.adresse = adresse
-  }
+  def modiferBatiment(predicate: Batiment => Boolean, function: Batiment => Unit) = rechercherBatiment(predicate).foreach(function)
 
-  def supprimerBatiment(no_bat: Int) = batiments.filterNot((b: Batiment) => b.no_bat == no_bat)
+  def supprimerBatiment(predicate: Batiment => Boolean) = batiments = batiments.filterNot(predicate)
 
   def ajouterTypeSalle(s: String) = typeSalle += s
 
   def supprimerTypeSalle(s: String) = typeSalle -= s
 
-  //if type dosnt exist?
   def consulterTypeSalle() = typeSalle
+
+  def ajouterTypeMateriel(t: String) = typeMateriel += t
+
+  def supprimerTypeMateriel(t: String) = typeMateriel -= t
+
+  def consulterTypeMateriel() = typeMateriel
+
+  def ajouterTypeManifestation(t: String) = typeManifestation += t
+
+  def supprimerTypeManifestation(t: String) = typeManifestation -= t
+
+  def consulterTypeManifestation() = typeManifestation
+
+  def ajouterTypeDuree(t: String) = typeDuree += t
+
+  def supprimerTypeDuree(t: String) = typeDuree -= t
+
+  def consulterTypeDuree() = typeDuree
+
+  def ajouterDemandeur(d: Demandeur) = demandeurs += d
+
+  def rechercherDemandeur(predicate: Demandeur => Boolean) = demandeurs.find(predicate)
+
+  def modiferDemandeur(predicate: Demandeur => Boolean, function: Demandeur => Unit) = rechercherDemandeur(predicate).foreach(function)
+
+  def supprimerDemandeur(predicate: Demandeur => Boolean) = demandeurs = demandeurs.filterNot(predicate)
 
 
 }
