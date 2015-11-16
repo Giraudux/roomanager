@@ -1,4 +1,7 @@
-
+/** Class Salle
+  *
+  * Classe qui represente salle
+  */
 package fr.univ.nantes.roomanager
 
 

@@ -1,4 +1,7 @@
-
+/** Class Adresse
+  *
+  * Classe qui represente une adresse
+  */
 package fr.univ.nantes.roomanager
 
 class Adresse(var no: String,

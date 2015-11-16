@@ -1,4 +1,7 @@
-
+/** Class System
+  *
+  * Classe qui represente le modele du projet
+  */
 package fr.univ.nantes.roomanager
 
 class Systeme {
@@ -15,7 +18,12 @@ class Systeme {
   //@TODO: reservation, suppression (suppression batiment/salle/demandeur => suppression reservation)
   //@TODO: gestion tarifs, planning, facture +=//; faire uml
   //@TODO: tests/docs
-   def reserverSalle(demandeur: Demandeur, reservation: Reservation) = false
+  
+  /* Methodes sur les reservations */
+   def reserverSalle(demandeur: Demandeur, reservation: Reservation) = {
+	   demandeur.reservations -= reservation
+	   demandeurs += demandeur
+   }
 
   def rechercherReservations(predicateDem: Demandeur => Boolean, predicateRes: Reservation => Boolean): Set[Reservation] = {
     var retourRes = Set[Reservation]()
@@ -26,7 +34,9 @@ class Systeme {
   def annulerReservation(predicateDem: Demandeur => Boolean, predicateRes: Reservation => Boolean) = {
     demandeurs.find(predicateDem).foreach((d: Demandeur) => d.reservations.find(predicateRes).foreach((r: Reservation) => d.reservations -= r))
   }
-
+  
+  /*Methodes de base sur les salles */
+  
   def ajouterSalle(batiment: Batiment, salle: Salle) = {
     batiment.salles += salle
     batiments += batiment
@@ -44,6 +54,8 @@ class Systeme {
 
   def supprimerSalle(predicateBat: Batiment => Boolean, predicateSalle: Salle => Boolean) = batiments.find(predicateBat).foreach((b: Batiment) => b.salles.find(predicateSalle).foreach((s: Salle) => b.salles -= s))
 
+  /*Methodes de base sur les batiments */
+  
   def ajouterBatiment(b: Batiment) = batiments += b
 
   def rechercherBatiment(predicate: Batiment => Boolean) = batiments.find(predicate)
@@ -51,7 +63,19 @@ class Systeme {
   def modiferBatiment(predicate: Batiment => Boolean, function: Batiment => Unit) = rechercherBatiment(predicate).foreach(function)
 
   def supprimerBatiment(predicate: Batiment => Boolean) = batiments = batiments.filterNot(predicate)
+  
+  /* Methode de base sur les demandeurs */
+  
+  def ajouterDemandeur(d: Demandeur) = demandeurs += d
 
+  def rechercherDemandeur(predicate: Demandeur => Boolean) = demandeurs.find(predicate)
+
+  def modiferDemandeur(predicate: Demandeur => Boolean, function: Demandeur => Unit) = rechercherDemandeur(predicate).foreach(function)
+
+  def supprimerDemandeur(predicate: Demandeur => Boolean) = demandeurs = demandeurs.filterNot(predicate)
+
+  /*Methodes sur les types , a voir avec le storage manager*/
+  
   def ajouterTypeSalle(s: String) = typeSalle += s
 
   def supprimerTypeSalle(s: String) = typeSalle -= s
@@ -76,13 +100,6 @@ class Systeme {
 
   def consulterTypeDuree() = typeDuree
 
-  def ajouterDemandeur(d: Demandeur) = demandeurs += d
-
-  def rechercherDemandeur(predicate: Demandeur => Boolean) = demandeurs.find(predicate)
-
-  def modiferDemandeur(predicate: Demandeur => Boolean, function: Demandeur => Unit) = rechercherDemandeur(predicate).foreach(function)
-
-  def supprimerDemandeur(predicate: Demandeur => Boolean) = demandeurs = demandeurs.filterNot(predicate)
 
 
 }
