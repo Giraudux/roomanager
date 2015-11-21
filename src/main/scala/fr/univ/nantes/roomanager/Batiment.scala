@@ -1,8 +1,6 @@
-/** Class Batiment
-  *
-  * Classe qui represente un Batiment
-  */
-package fr.univ.nantes.roomanager
+
+package scala.fr.univ.nantes.roomanager
+
 
 class Batiment(var no_bat: Int,
                var nom: String,

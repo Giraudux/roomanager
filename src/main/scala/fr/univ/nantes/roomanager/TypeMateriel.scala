@@ -1,5 +1,5 @@
 
-package fr.univ.nantes.roomanager
+package scala.fr.univ.nantes.roomanager
 
 object TypeMateriel extends Enumeration {
   type TypeMateriel = Value

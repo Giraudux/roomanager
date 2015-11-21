@@ -1,5 +1,5 @@
 
-package fr.univ.nantes.roomanager
+package scala.fr.univ.nantes.roomanager
 
 
 class Materiel(var code_inv: Int,

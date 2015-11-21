@@ -1,17 +1,10 @@
-/** Class Adresse
-  *
-  * Classe qui represente une adresse
-  */
-  
-package fr.univ.nantes.roomanager
 
-import fr.univ.nantes.roomanager.Origine.Origine
-import fr.univ.nantes.roomanager.Titre.Titre
+package scala.fr.univ.nantes.roomanager
 
-class Demandeur(var no_dem: Int,
-                var nom: String,
-                var adresse: String,
+
+
+class Demandeur(var no_dem: Int, var nom: String, var e: Adresse,
                 var origine: String,
-                var titre: Titre) {
+                var titre: String) {
   var reservations: Set[Reservation] = Set()
 }

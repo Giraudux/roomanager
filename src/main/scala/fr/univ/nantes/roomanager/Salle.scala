@@ -1,8 +1,6 @@
-/** Class Salle
-  *
-  * Classe qui represente salle
-  */
-package fr.univ.nantes.roomanager
+
+package scala.fr.univ.nantes.roomanager
+
 
 
 class Salle(var no_etage: Int,
