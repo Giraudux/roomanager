@@ -1,9 +1,9 @@
 package scala.fr.univ.nantes.roomanager
 
-import java.util.Date
+import java.util.Calendar
 
 
-class Reservation(var date_resa:Date,
+class Reservation(var date_resa:Calendar,
                   var salle: Salle,
                   var manifestation: String,
                   var duree: String) {

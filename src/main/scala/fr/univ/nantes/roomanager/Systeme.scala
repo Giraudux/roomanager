@@ -1,16 +1,10 @@
 
 package fr.univ.nantes.roomanager
 
-import scala.fr.univ.nantes.roomanager.Materiel
+import scala.fr.univ.nantes.roomanager._
 
-import scala.fr.univ.nantes.roomanager.Demandeur
 
-import scala.fr.univ.nantes.roomanager.Batiment
-
-import scala.fr.univ.nantes.roomanager.Salle
-
-import scala.fr.univ.nantes.roomanager.Reservation
-
+import java.util.Calendar
 
 
 class Systeme {  
@@ -20,12 +14,14 @@ class Systeme {
   var typeSalle = Set[String]("Cuisine", "Toilettes", "Salon")
   var typeMateriel = Set[String]("Tableau", "RetroProjecteur", "MoyensVideo")
   var typeManifestation = Set[String]("Reunion", "Banquet", "Spectacle")
-  var typeDuree = Set[String]("DemiJournee", "Soiree")
+  var typeDuree = Set[String]("Matin","Apres-Midi", "Soiree")
   var typeTitre = Set[String]("Particulier", "Association", "Entreprise")
   var typeOrigine = Set[String]("Resident", "NonResident")
 
+  val GF = new GestionFinanciere()
+
   //@TODO: reservation, suppression (suppression batiment/salle/demandeur => suppression reservation)
-  //@TODO: gestion tarifs, planning, facture +=//; faire uml
+  //@TODO:  planning,taux occupations des salles  +=//; faire uml
   //@TODO: tests/docs
   def reserverSalle(demandeur: Demandeur, reservation: Reservation) = demandeur.reservations += reservation
 
@@ -96,5 +92,10 @@ class Systeme {
 
   def supprimerDemandeur(predicate: Demandeur => Boolean) = demandeurs = demandeurs.filterNot(predicate)
 
+  def factureHebdo(d: Demandeur,numSemaine:Int) = {
+    var acc : Double =0
+    rechercherReservations((d2 : Demandeur) => d2==d,(r:Reservation)=> r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine).foreach((r: Reservation) => acc += GF.cout(d, r))
+    acc
+  }
 
 }
