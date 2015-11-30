@@ -11,6 +11,7 @@ class Systeme {
   // use storage manager interface ?
   var batiments = Set[Batiment]()
   var demandeurs = Set[Demandeur]()
+
   var typeSalle = Set[String]("Cuisine", "Toilettes", "Salon")
   var typeMateriel = Set[String]("Tableau", "RetroProjecteur", "MoyensVideo")
   var typeManifestation = Set[String]("Reunion", "Banquet", "Spectacle")
@@ -21,7 +22,6 @@ class Systeme {
   val GF = new GestionFinanciere()
 
   //@TODO: reservation, suppression (suppression batiment/salle/demandeur => suppression reservation)
-  //@TODO:  planning,taux occupations des salles  +=//; faire uml
   //@TODO: tests/docs
   def reserverSalle(demandeur: Demandeur, reservation: Reservation) = demandeur.reservations += reservation
 
@@ -50,7 +50,10 @@ class Systeme {
 
   def supprimerMaterielSalle(salle: Salle, materiel: Materiel) = salle.materiels -= materiel
 
-  def supprimerSalle(predicateBat: Batiment => Boolean, predicateSalle: Salle => Boolean) = batiments.find(predicateBat).foreach((b: Batiment) => b.salles.find(predicateSalle).foreach((s: Salle) => b.salles -= s))
+  def supprimerSalle(predicateBat: Batiment => Boolean, predicateSalle: Salle => Boolean) = {
+
+    batiments.find(predicateBat).foreach((b: Batiment) => b.salles.find(predicateSalle).foreach((s: Salle) => b.salles -= s))
+  }
 
   def ajouterBatiment(b: Batiment) = batiments += b
 
@@ -60,29 +63,29 @@ class Systeme {
 
   def supprimerBatiment(predicate: Batiment => Boolean) = batiments = batiments.filterNot(predicate)
 
-  def ajouterTypeSalle(s: String) = typeSalle += s
+  def ajouterTypeSalle(s: String,d:Double) = GF.coutTypeSalle += ((s,d))
 
-  def supprimerTypeSalle(s: String) = typeSalle -= s
+  def supprimerTypeSalle(s: String) = GF.coutTypeSalle -= s
 
-  def consulterTypeSalle() = typeSalle
+  def consulterTypeSalle() = GF.coutTypeSalle
 
-  def ajouterTypeMateriel(t: String) = typeMateriel += t
+  def ajouterTypeMateriel(t: String,d:Double) = GF.coutTypeMateriel += ((t,d))
 
-  def supprimerTypeMateriel(t: String) = typeMateriel -= t
+  def supprimerTypeMateriel(t: String) = GF.coutTypeMateriel -= t
 
-  def consulterTypeMateriel() = typeMateriel
+  def consulterTypeMateriel() = GF.coutTypeMateriel
 
-  def ajouterTypeManifestation(t: String) = typeManifestation += t
+  def ajouterTypeManifestation(t: String,d:Double) = GF.typeManifestation += ((t,d))
 
-  def supprimerTypeManifestation(t: String) = typeManifestation -= t
+  def supprimerTypeManifestation(t: String) = GF.typeManifestation -= t
 
-  def consulterTypeManifestation() = typeManifestation
+  def consulterTypeManifestation() = GF.typeManifestation
 
-  def ajouterTypeDuree(t: String) = typeDuree += t
+  def ajouterTypeDuree(t: String,d:Double) = GF.coutDuree += ((t,d))
 
-  def supprimerTypeDuree(t: String) = typeDuree -= t
+  def supprimerTypeDuree(t: String) = GF.coutDuree -= t
 
-  def consulterTypeDuree() = typeDuree
+  def consulterTypeDuree() = GF.coutDuree
 
   def ajouterDemandeur(d: Demandeur) = demandeurs += d
 
@@ -90,7 +93,9 @@ class Systeme {
 
   def modiferDemandeur(predicate: Demandeur => Boolean, function: Demandeur => Unit) = rechercherDemandeur(predicate).foreach(function)
 
-  def supprimerDemandeur(predicate: Demandeur => Boolean) = demandeurs = demandeurs.filterNot(predicate)
+  def supprimerDemandeur(predicate: Demandeur => Boolean) = {
+    demandeurs = demandeurs.filterNot(predicate)
+  }
 
   def factureHebdo(d: Demandeur,numSemaine:Int) = {
     var acc : Double =0
@@ -98,4 +103,18 @@ class Systeme {
     acc
   }
 
+  def tauxOccupationSemaine(predicat : Salle => Boolean, numSemaine:Integer):Double = {
+    var resSalle = rechercherReservations((d:Demandeur)=>true, (r:Reservation)=>predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine ).size
+    resSalle / (7.0 * GF.coutDuree.size)*100.0
+  }
+
+  def PlanningSemaine(predicat : Salle => Boolean, numSemaine:Integer) = {
+    rechercherReservations((d:Demandeur)=>true, (r:Reservation)=>predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine)
+  }
+
+
+/*Une biche a brouté dans ta main l'herbe du savoir. */
+/* L'herbe du savoir commence à se faner */
+/* Mais elle renaitra dans le champs de la connaissance */
+/* THUG LIFE */
 }

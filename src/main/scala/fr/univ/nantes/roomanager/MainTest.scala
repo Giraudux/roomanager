@@ -35,7 +35,9 @@ object MainTest {
 
     println("cout de la reservation RES1: " + syst.GF.cout(dem1,res1))
 
-    println("facture hebdo de Choupette<3: " + syst.factureHebdo(dem1,48))
+    println("facture hebdo de Choupette<3: " + syst.factureHebdo(dem1,49))
+
+    println("TAUX OCCUPATION: " + syst.tauxOccupationSemaine((s: Salle) => true,49))
         
   }
 }

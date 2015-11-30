@@ -2,11 +2,14 @@ package scala.fr.univ.nantes.roomanager
 
 import scala.collection.mutable.HashMap
 
+
+/*TODO rename in tableTarif #choupette <3 <3 */
 class GestionFinanciere() {
 
 
   /* a revoir #PONEY*/
   var coutTypeSalle: HashMap[String, Double] = HashMap("Cuisine" -> 27.0, "Toilettes" -> 12.5, "Salon" -> 25.0)
+  var coutTypeMateriel: HashMap[String, Double] = HashMap("Tableau" -> 32.0, "Vaisselle" -> 43.0)
   var coutSuperficie: HashMap[Int, Double] = HashMap(10 -> 50, 20 -> 75, 30 -> 100, 40 -> 125)
   var coutDuree: HashMap[String, Double] = HashMap("Matin" -> 30,"Apres-Midi" -> 30, "Soiree" -> 45)
   var coutTypeTitre: HashMap[String, Double] = HashMap("Resident" -> 25, "NonResident" -> 75)
