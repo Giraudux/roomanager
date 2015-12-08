@@ -13,7 +13,9 @@ trait AdresseDao {
 
   def insert(adresse: AdresseBean): AdresseBean
 
-  def update(adresse: AdresseBean): AdresseBean
+  def update(adresse: AdresseBean): Unit
+
+  def upsert(adresse: AdresseBean): AdresseBean
 
   def delete(p: (AdresseBean) => Boolean): Unit
 
