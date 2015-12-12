@@ -1,8 +1,25 @@
 package fr.univ.nantes.roomanager.dao.demandeur
 
+import fr.univ.nantes.roomanager.bean.DemandeurBean
+
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-class Demandeur {
+class Demandeur(val id: Int, demandeurBean: DemandeurBean) extends DemandeurBean(demandeurBean.getId_adresse, demandeurBean.getId_typeOrigine, demandeurBean.getId_typeTitre, demandeurBean.getNom) {
+  override def getId(): Int = id
 
+  override def equals(other: Any): Boolean = other match {
+    case that: DemandeurBean =>
+      other.isInstanceOf[DemandeurBean] &&
+        getId == that.getId
+    case _ => false
+  }
+
+  def equalsUnique(other: Any): Boolean = other match {
+    case that: DemandeurBean =>
+      other.isInstanceOf[DemandeurBean] &&
+        getId_adresse == that.getId_adresse &&
+        getNom == that.getNom
+    case _ => false
+  }
 }

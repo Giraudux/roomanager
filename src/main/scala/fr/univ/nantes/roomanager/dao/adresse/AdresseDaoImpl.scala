@@ -23,19 +23,22 @@ class AdresseDaoImpl extends AdresseDao {
     newAdresse
   }
 
-  override def update(adresse: AdresseBean): Unit = {
-    if (adresses.contains(adresse)) {
-      adresses += adresse
-      adresse
+  override def update(adresse: AdresseBean): AdresseBean = {
+    var newAdresse: Adresse = new Adresse(adresse.getId(), adresse)
+    if (adresses.contains(newAdresse)) {
+      if (get((other: AdresseBean) => newAdresse.equalsUnique(other)).isDefined) {
+        throw new Exception("unique constraint violated")
+      }
+      adresses += newAdresse
     } else {
       throw new Exception("index not found")
     }
+    newAdresse
   }
 
   override def upsert(adresse: AdresseBean): AdresseBean = {
     if (adresses.contains(adresse)) {
-      adresses += adresse
-      adresse
+      update(adresse)
     } else {
       insert(adresse)
     }
