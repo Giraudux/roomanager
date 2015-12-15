@@ -1,54 +1,22 @@
 package fr.univ.nantes.roomanager.dao.adresse
 
 import fr.univ.nantes.roomanager.bean.AdresseBean
+import fr.univ.nantes.roomanager.dao.Dao
 
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-class AdresseDaoImpl extends AdresseDao {
+class AdresseDaoImpl extends Dao[AdresseBean] {
   private var increment: Int = 0
   private var adresses: Set[AdresseBean] = Set()
 
-  override def get(p: (AdresseBean) => Boolean): Option[AdresseBean] = adresses.find(p)
+  override def get(id: Int): AdresseBean = adresses.find((adresse: AdresseBean) => adresse.getId() == id).get
 
-  override def getAll(p: (AdresseBean) => Boolean): Set[AdresseBean] = adresses.filter(p)
+  override def update(adresse: AdresseBean): Unit = if(adresses.contains(adresse)) adresses += adresse else throw new Exception()
 
-  override def insert(adresse: AdresseBean): AdresseBean = {
-    var newAdresse: Adresse = new Adresse(increment, adresse)
-    if (get((other: AdresseBean) => newAdresse.equalsUnique(other)).isDefined) {
-      throw new Exception("unique constraint violated")
-    }
-    adresses += newAdresse
-    increment += 1
-    newAdresse
-  }
+  override def delete(adresse: AdresseBean): Unit = adresses -= adresse
 
-  override def update(adresse: AdresseBean): AdresseBean = {
-    var newAdresse: Adresse = new Adresse(adresse.getId(), adresse)
-    if (adresses.contains(newAdresse)) {
-      if (get((other: AdresseBean) => newAdresse.equalsUnique(other)).isDefined) {
-        throw new Exception("unique constraint violated")
-      }
-      adresses += newAdresse
-    } else {
-      throw new Exception("index not found")
-    }
-    newAdresse
-  }
+  override def find(predicate: (AdresseBean) => Boolean): Traversable[AdresseBean] = adresses.filter(predicate)
 
-  override def upsert(adresse: AdresseBean): AdresseBean = {
-    if (adresses.contains(adresse)) {
-      update(adresse)
-    } else {
-      insert(adresse)
-    }
-  }
-
-  override def delete(p: (AdresseBean) => Boolean): Unit = adresses.find(p).foreach((adresse: AdresseBean) => {
-    adresses -= adresse
-  })
-
-  override def deleteAll(p: (AdresseBean) => Boolean): Unit = adresses.filter(p).foreach((adresse: AdresseBean) => {
-    adresses -= adresse
-  })
+  override def create(adresse: AdresseBean): AdresseBean = ???
 }
