@@ -1,22 +1,10 @@
 package fr.univ.nantes.roomanager.dao.adresse
 
 import fr.univ.nantes.roomanager.bean.AdresseBean
+import fr.univ.nantes.roomanager.dao.Dao
 
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-trait AdresseDao {
-  def get(p: (AdresseBean) => Boolean): Option[AdresseBean]
-
-  def getAll(p: (AdresseBean) => Boolean): Traversable[AdresseBean]
-
-  def insert(adresse: AdresseBean): AdresseBean
-
-  def update(adresse: AdresseBean): AdresseBean
-
-  def upsert(adresse: AdresseBean): AdresseBean
-
-  def delete(p: (AdresseBean) => Boolean): Unit
-
-  def deleteAll(p: (AdresseBean) => Boolean): Unit
+trait AdresseDao extends Dao[AdresseBean] {
 }

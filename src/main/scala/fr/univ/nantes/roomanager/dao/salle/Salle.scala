@@ -8,14 +8,7 @@ import fr.univ.nantes.roomanager.bean.SalleBean
 class Salle(val id: Int, salleBean: SalleBean) extends SalleBean(salleBean.getId_batiment, salleBean.getId_typeSalle, salleBean.getEtage, salleBean.getSuperficie) {
   override def getId(): Int = id
 
-  override def equals(other: Any): Boolean = other match {
-    case that: SalleBean =>
-      other.isInstanceOf[SalleBean] &&
-        getId == that.getId
-    case _ => false
-  }
-
-  def equalsUnique(other: Any): Boolean = other match {
+  def uniqueConstraint(other: Any): Boolean = other match {
     case that: SalleBean =>
       other.isInstanceOf[SalleBean] &&
         false

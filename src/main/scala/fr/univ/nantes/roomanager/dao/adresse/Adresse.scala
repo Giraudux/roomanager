@@ -8,14 +8,7 @@ import fr.univ.nantes.roomanager.bean.AdresseBean
 class Adresse(val id: Int, adresseBean: AdresseBean) extends AdresseBean(adresseBean.getAdresse, adresseBean.getCode, adresseBean.getVille) {
   override def getId(): Int = id
 
-  override def equals(other: Any): Boolean = other match {
-    case that: AdresseBean =>
-      other.isInstanceOf[AdresseBean] &&
-        getId == that.getId
-    case _ => false
-  }
-
-  def equalsUnique(other: Any): Boolean = other match {
+  def uniqueConstraint(other: Any): Boolean = other match {
     case that: AdresseBean =>
       other.isInstanceOf[AdresseBean] &&
         getAdresse == that.getAdresse &&
