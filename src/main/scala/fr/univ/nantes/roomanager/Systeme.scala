@@ -1,6 +1,19 @@
 
 package fr.univ.nantes.roomanager
 
+import fr.univ.nantes.roomanager.dao.adresse.{AdresseDaoImpl, AdresseDao}
+import fr.univ.nantes.roomanager.dao.batiment.{BatimentDaoImpl, BatimentDao}
+import fr.univ.nantes.roomanager.dao.demandeur.{DemandeurDao, DemandeurDaoImpl}
+import fr.univ.nantes.roomanager.dao.materiel.{MaterielDao, MaterielDaoImpl}
+import fr.univ.nantes.roomanager.dao.reservation.{ReservationDaoImpl, ReservationDao}
+import fr.univ.nantes.roomanager.dao.salle.{SalleDaoImpl, SalleDao}
+import fr.univ.nantes.roomanager.dao.typeduree.{TypeDureeDaoImpl, TypeDureeDao}
+import fr.univ.nantes.roomanager.dao.typemanifestation.{TypeManifestationDaoImpl, TypeManifestationDao}
+import fr.univ.nantes.roomanager.dao.typemateriel.{TypeMaterielDao, TypeMaterielDaoImpl}
+import fr.univ.nantes.roomanager.dao.typeorigine.{TypeOrigineDaoImpl, TypeOrigineDao}
+import fr.univ.nantes.roomanager.dao.typesalle.{TypeSalleDao, TypeSalleDaoImpl}
+import fr.univ.nantes.roomanager.dao.typetitre.{TypeTitreDaoImpl, TypeTitreDao}
+
 import scala.fr.univ.nantes.roomanager._
 
 
@@ -117,4 +130,21 @@ class Systeme {
 /* L'herbe du savoir commence à se faner */
 /* Mais elle renaitra dans le champs de la connaissance */
 /* THUG LIFE */
+
+  var adresseDao: AdresseDao = new AdresseDaoImpl()
+  var batimentDao: BatimentDao = new BatimentDaoImpl()
+  var demandeurDao: DemandeurDao = new DemandeurDaoImpl()
+  var materielDao: MaterielDao = new MaterielDaoImpl()
+  var reservationDao: ReservationDao = new ReservationDaoImpl()
+  var salleDao: SalleDao = new SalleDaoImpl()
+  var typeDureeDao: TypeDureeDao = new TypeDureeDaoImpl()
+  var typeManifestationDao: TypeManifestationDao = new TypeManifestationDaoImpl()
+  var typeMaterielDao: TypeMaterielDao = new TypeMaterielDaoImpl()
+  var typeOrigineDao: TypeOrigineDao = new TypeOrigineDaoImpl()
+  var typeSalleDao: TypeSalleDao = new TypeSalleDaoImpl()
+  var typeTitreDao: TypeTitreDao = new TypeTitreDaoImpl()
+
+  def init(): Unit = {
+    
+  }
 }
