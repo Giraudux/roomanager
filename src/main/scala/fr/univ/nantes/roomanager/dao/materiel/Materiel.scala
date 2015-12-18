@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.materiel
 import fr.univ.nantes.roomanager.bean.MaterielBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class Materiel(val id: Int, materielBean: MaterielBean) extends MaterielBean(materielBean.getId_typeMateriel, materielBean.getId_salle, materielBean.getId_reservation) {
   override def getId(): Int = id

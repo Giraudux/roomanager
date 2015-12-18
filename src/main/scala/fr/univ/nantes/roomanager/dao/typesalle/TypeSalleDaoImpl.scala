@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.typesalle
 import fr.univ.nantes.roomanager.bean.TarifBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class TypeSalleDaoImpl extends TypeSalleDao {
   private var increment: Int = 0

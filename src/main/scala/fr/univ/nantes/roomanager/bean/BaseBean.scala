@@ -1,5 +1,9 @@
 package fr.univ.nantes.roomanager.bean
 
+/**
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
+ */
 class BaseBean {
   def getId(): Int = -1
 

@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.demandeur
 import fr.univ.nantes.roomanager.bean.DemandeurBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class Demandeur(val id: Int, demandeurBean: DemandeurBean) extends DemandeurBean(demandeurBean.getId_adresse, demandeurBean.getId_typeOrigine, demandeurBean.getId_typeTitre, demandeurBean.getNom) {
   override def getId(): Int = id

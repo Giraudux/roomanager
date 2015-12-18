@@ -5,7 +5,8 @@ import java.util.Calendar
 import scala.beans.BeanProperty
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class ReservationBean(@BeanProperty var id_salle: Int,
                       @BeanProperty var id_demandeur: Int,

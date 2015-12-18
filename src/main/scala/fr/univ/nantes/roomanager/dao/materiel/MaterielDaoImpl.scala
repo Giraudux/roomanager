@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.materiel
 import fr.univ.nantes.roomanager.bean.MaterielBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class MaterielDaoImpl extends MaterielDao {
   private var increment: Int = 0

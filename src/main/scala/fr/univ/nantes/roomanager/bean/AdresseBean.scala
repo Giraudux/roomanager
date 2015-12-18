@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.bean
 import scala.beans.BeanProperty
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class AdresseBean(@BeanProperty var adresse: String,
                   @BeanProperty var code: String,

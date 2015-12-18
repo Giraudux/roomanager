@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.typemanifestation
 import fr.univ.nantes.roomanager.bean.TarifBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class TypeManifestation(val id: Int, typeManifestation: TarifBean) extends TarifBean(typeManifestation.getLibelle, typeManifestation.getTarifBase, typeManifestation.getTarifCoef) {
   override def getId(): Int = id

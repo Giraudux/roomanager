@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.salle
 import fr.univ.nantes.roomanager.bean.SalleBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class SalleDaoImpl extends SalleDao {
   private var increment: Int = 0

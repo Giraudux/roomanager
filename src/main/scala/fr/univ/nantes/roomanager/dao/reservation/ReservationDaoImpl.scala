@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.reservation
 import fr.univ.nantes.roomanager.bean.ReservationBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class ReservationDaoImpl extends ReservationDao {
   private var increment: Int = 0

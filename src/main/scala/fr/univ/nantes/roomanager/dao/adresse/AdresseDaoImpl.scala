@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.adresse
 import fr.univ.nantes.roomanager.bean.AdresseBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class AdresseDaoImpl extends AdresseDao {
   private var increment: Int = 0

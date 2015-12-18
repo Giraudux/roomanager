@@ -1,7 +1,8 @@
 package fr.univ.nantes.roomanager.dao
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 trait Dao[T] {
   def get(id: Int): T

@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.reservation
 import fr.univ.nantes.roomanager.bean.ReservationBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class Reservation(val id: Int, reservationBean: ReservationBean) extends ReservationBean(reservationBean.getId_salle, reservationBean.getId_demandeur, reservationBean.getId_typeManifestation, reservationBean.getId_typeDuree, reservationBean.getDateResa) {
   override def getId(): Int = id

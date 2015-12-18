@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.demandeur
 import fr.univ.nantes.roomanager.bean.DemandeurBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class DemandeurDaoImpl extends DemandeurDao {
   private var increment: Int = 0

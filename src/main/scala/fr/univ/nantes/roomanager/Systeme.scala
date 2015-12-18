@@ -17,7 +17,10 @@ import fr.univ.nantes.roomanager.dao.typeorigine.{TypeOrigineDao, TypeOrigineDao
 import fr.univ.nantes.roomanager.dao.typesalle.{TypeSalleDao, TypeSalleDaoImpl}
 import fr.univ.nantes.roomanager.dao.typetitre.{TypeTitreDao, TypeTitreDaoImpl}
 
-
+/**
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
+ */
 class Systeme {
 
   var adresseDao: AdresseDao = new AdresseDaoImpl()
@@ -32,7 +35,7 @@ class Systeme {
   var typeOrigineDao: TypeOrigineDao = new TypeOrigineDaoImpl()
   var typeSalleDao: TypeSalleDao = new TypeSalleDaoImpl()
   var typeTitreDao: TypeTitreDao = new TypeTitreDaoImpl()
-  
+
   def init(): Unit = {
     var tarif: TarifBean = new TarifBean(null, 0.0, 1.0)
 

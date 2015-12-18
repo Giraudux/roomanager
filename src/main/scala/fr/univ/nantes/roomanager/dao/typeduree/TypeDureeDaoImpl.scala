@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.typeduree
 import fr.univ.nantes.roomanager.bean.TarifBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class TypeDureeDaoImpl extends TypeDureeDao {
   private var increment: Int = 0

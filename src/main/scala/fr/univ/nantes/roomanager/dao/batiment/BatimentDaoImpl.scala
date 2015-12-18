@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.batiment
 import fr.univ.nantes.roomanager.bean.BatimentBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class BatimentDaoImpl extends BatimentDao {
   private var increment: Int = 0

@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.salle
 import fr.univ.nantes.roomanager.bean.SalleBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class Salle(val id: Int, salleBean: SalleBean) extends SalleBean(salleBean.getId_batiment, salleBean.getId_typeSalle, salleBean.getEtage, salleBean.getSuperficie) {
   override def getId(): Int = id

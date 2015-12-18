@@ -3,7 +3,8 @@ package fr.univ.nantes.roomanager.dao.typeduree
 import fr.univ.nantes.roomanager.bean.TarifBean
 
 /**
- * @author Pierre Gaultier & Alexis Giraudet
+ * @author Pierre Gaultier
+ * @author Alexis Giraudet
  */
 class TypeDuree(val id: Int, typeDuree: TarifBean) extends TarifBean(typeDuree.getLibelle, typeDuree.getTarifBase, typeDuree.getTarifCoef) {
   override def getId(): Int = id
