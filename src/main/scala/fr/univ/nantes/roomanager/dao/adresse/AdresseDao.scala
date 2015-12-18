@@ -6,5 +6,4 @@ import fr.univ.nantes.roomanager.dao.Dao
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-trait AdresseDao extends Dao[AdresseBean] {
-}
+trait AdresseDao extends Dao[AdresseBean] {}

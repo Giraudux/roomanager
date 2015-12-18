@@ -6,5 +6,4 @@ import fr.univ.nantes.roomanager.dao.Dao
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-trait TypeMaterielDao extends Dao[TarifBean] {
-}
+trait TypeMaterielDao extends Dao[TarifBean] {}

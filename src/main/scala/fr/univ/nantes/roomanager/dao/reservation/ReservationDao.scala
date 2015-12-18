@@ -6,5 +6,4 @@ import fr.univ.nantes.roomanager.dao.Dao
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-trait ReservationDao extends Dao[ReservationBean] {
-}
+trait ReservationDao extends Dao[ReservationBean] {}

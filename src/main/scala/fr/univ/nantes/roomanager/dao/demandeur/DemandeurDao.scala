@@ -6,5 +6,4 @@ import fr.univ.nantes.roomanager.dao.Dao
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-trait DemandeurDao extends Dao[DemandeurBean] {
-}
+trait DemandeurDao extends Dao[DemandeurBean] {}
