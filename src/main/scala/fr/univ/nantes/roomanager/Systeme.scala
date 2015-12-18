@@ -17,8 +17,6 @@ import fr.univ.nantes.roomanager.dao.typeorigine.{TypeOrigineDao, TypeOrigineDao
 import fr.univ.nantes.roomanager.dao.typesalle.{TypeSalleDao, TypeSalleDaoImpl}
 import fr.univ.nantes.roomanager.dao.typetitre.{TypeTitreDao, TypeTitreDaoImpl}
 
-import scala.fr.univ.nantes.roomanager._
-
 
 class Systeme {
 
@@ -101,7 +99,7 @@ class Systeme {
   // gestion des reservations
 
   def createReservation(reservation: ReservationBean): ReservationBean = {
-    if(searchReservation((otherReservation: ReservationBean)=> otherReservation.getDateResa.get(Calendar.YEAR) == reservation.getDateResa.get(Calendar.YEAR) &&
+    if (searchReservation((otherReservation: ReservationBean) => otherReservation.getDateResa.get(Calendar.YEAR) == reservation.getDateResa.get(Calendar.YEAR) &&
       otherReservation.getDateResa.get(Calendar.DAY_OF_YEAR) == reservation.getDateResa.get(Calendar.DAY_OF_YEAR) &&
       otherReservation.getId_salle == reservation.getId_salle &&
       otherReservation.getId_typeDuree == reservation.getId_typeDuree).nonEmpty)
@@ -116,7 +114,7 @@ class Systeme {
   def searchReservation(predicate: (ReservationBean) => Boolean): Traversable[ReservationBean] = reservationDao.find(predicate)
 
   def deleteReservation(reservation: ReservationBean): Unit = {
-    searchMateriel((materiel:MaterielBean) => materiel.getId_reservation == reservation.getId()).foreach((materiel: MaterielBean)=> deleteMateriel(materiel))
+    searchMateriel((materiel: MaterielBean) => materiel.getId_reservation == reservation.getId()).foreach((materiel: MaterielBean) => deleteMateriel(materiel))
     reservationDao.delete(reservation)
   }
 
@@ -133,8 +131,8 @@ class Systeme {
   def updateSalle(salle: SalleBean): Unit = salleDao.update(salle)
 
   def deleteSalle(salle: SalleBean): Unit = {
-    searchMateriel((materiel:MaterielBean) => materiel.getId_salle == salle.getId()).foreach((materiel: MaterielBean)=> deleteMateriel(materiel))
-    searchReservation((reservation:ReservationBean) => reservation.getId_salle == salle.getId()).foreach((reservation: ReservationBean)=> deleteReservation(reservation))
+    searchMateriel((materiel: MaterielBean) => materiel.getId_salle == salle.getId()).foreach((materiel: MaterielBean) => deleteMateriel(materiel))
+    searchReservation((reservation: ReservationBean) => reservation.getId_salle == salle.getId()).foreach((reservation: ReservationBean) => deleteReservation(reservation))
     salleDao.delete(salle)
   }
 
@@ -151,8 +149,8 @@ class Systeme {
   def updateBatiment(batiment: BatimentBean): Unit = batimentDao.update(batiment)
 
   def deleteBatiment(batiment: BatimentBean): Unit = {
-    searchSalle((salle:SalleBean) => salle.getId_batiment == batiment.getId()).foreach((salle: SalleBean)=> deleteSalle(salle))
-    searchAdresse((adresse:AdresseBean) => adresse.getId() == batiment.getId_adresse).foreach((adresse: AdresseBean)=> deleteAdresse(adresse))
+    searchSalle((salle: SalleBean) => salle.getId_batiment == batiment.getId()).foreach((salle: SalleBean) => deleteSalle(salle))
+    searchAdresse((adresse: AdresseBean) => adresse.getId() == batiment.getId_adresse).foreach((adresse: AdresseBean) => deleteAdresse(adresse))
     batimentDao.delete(batiment)
   }
 
@@ -169,16 +167,16 @@ class Systeme {
   def updateDemandeur(demandeur: DemandeurBean): Unit = demandeurDao.update(demandeur)
 
   def deleteDemandeur(demandeur: DemandeurBean): Unit = {
-    searchReservation((reservation:ReservationBean) => reservation.getId_demandeur == demandeur.getId()).foreach((reservation: ReservationBean)=> deleteReservation(reservation))
-    searchAdresse((adresse:AdresseBean) => adresse.getId() == demandeur.getId_adresse).foreach((adresse: AdresseBean)=> deleteAdresse(adresse))
+    searchReservation((reservation: ReservationBean) => reservation.getId_demandeur == demandeur.getId()).foreach((reservation: ReservationBean) => deleteReservation(reservation))
+    searchAdresse((adresse: AdresseBean) => adresse.getId() == demandeur.getId_adresse).foreach((adresse: AdresseBean) => deleteAdresse(adresse))
     demandeurDao.delete(demandeur)
   }
 
   // gestion des materiels
 
   def createMateriel(materiel: MaterielBean): MaterielBean = {
-    if(materiel.getId_reservation < 0 && materiel.getId_salle < 0 ||
-    materiel.getId_reservation >= 0 && materiel.getId_salle >= 0)
+    if (materiel.getId_reservation < 0 && materiel.getId_salle < 0 ||
+      materiel.getId_reservation >= 0 && materiel.getId_salle >= 0)
       throw new Exception()
     materielDao.create(materiel)
   }
@@ -190,10 +188,11 @@ class Systeme {
   def searchMateriel(predicate: (MaterielBean) => Boolean): Traversable[MaterielBean] = materielDao.find(predicate)
 
   def updateMateriel(materiel: MaterielBean): Unit = {
-    if(materiel.getId_reservation < 0 && materiel.getId_salle < 0 ||
+    if (materiel.getId_reservation < 0 && materiel.getId_salle < 0 ||
       materiel.getId_reservation >= 0 && materiel.getId_salle >= 0)
       throw new Exception()
-    materielDao.update(materiel)}
+    materielDao.update(materiel)
+  }
 
   def deleteMateriel(materiel: MaterielBean): Unit = materielDao.delete(materiel)
 
@@ -208,7 +207,7 @@ class Systeme {
   def updateTypeDuree(typeDuree: TarifBean): Unit = typeDureeDao.update(typeDuree)
 
   def deleteTypeDuree(typeDuree: TarifBean): Unit = {
-    searchReservation((reservation: ReservationBean)=>reservation.getId_typeDuree == typeDuree.getId()).foreach((reservation:ReservationBean)=> deleteReservation(reservation))
+    searchReservation((reservation: ReservationBean) => reservation.getId_typeDuree == typeDuree.getId()).foreach((reservation: ReservationBean) => deleteReservation(reservation))
     typeDureeDao.delete(typeDuree)
   }
 
@@ -223,7 +222,7 @@ class Systeme {
   def updateTypeManifestation(typeManifestation: TarifBean): Unit = typeManifestationDao.update(typeManifestation)
 
   def deleteTypeManifestation(typeManifestation: TarifBean): Unit = {
-    searchReservation((reservation:ReservationBean)=> reservation.getId_typeManifestation == typeManifestation.getId()).foreach((reservation:ReservationBean)=> deleteReservation(reservation))
+    searchReservation((reservation: ReservationBean) => reservation.getId_typeManifestation == typeManifestation.getId()).foreach((reservation: ReservationBean) => deleteReservation(reservation))
     typeManifestationDao.delete(typeManifestation)
   }
 
@@ -238,7 +237,7 @@ class Systeme {
   def updateTypeMateriel(typeMateriel: TarifBean): Unit = typeMaterielDao.update(typeMateriel)
 
   def deleteTypeMateriel(typeMateriel: TarifBean): Unit = {
-    searchMateriel((materiel:MaterielBean)=>materiel.getId_typeMateriel == typeMateriel.getId()).foreach((materiel:MaterielBean)=>deleteMateriel(materiel))
+    searchMateriel((materiel: MaterielBean) => materiel.getId_typeMateriel == typeMateriel.getId()).foreach((materiel: MaterielBean) => deleteMateriel(materiel))
     typeMaterielDao.delete(typeMateriel)
   }
 
@@ -253,7 +252,7 @@ class Systeme {
   def updateTypeOrigine(typeOrigine: TarifBean): Unit = typeOrigineDao.update(typeOrigine)
 
   def deleteTypeOrigine(typeOrigine: TarifBean): Unit = {
-    searchDemandeur((demandeur:DemandeurBean)=> demandeur.getId_typeOrigine == typeOrigine.getId()).foreach((demandeur:DemandeurBean)=>deleteDemandeur(demandeur))
+    searchDemandeur((demandeur: DemandeurBean) => demandeur.getId_typeOrigine == typeOrigine.getId()).foreach((demandeur: DemandeurBean) => deleteDemandeur(demandeur))
     typeOrigineDao.delete(typeOrigine)
   }
 
@@ -268,7 +267,7 @@ class Systeme {
   def updateTypeSalle(typeSalle: TarifBean): Unit = typeSalleDao.update(typeSalle)
 
   def deleteTypeSalle(typeSalle: TarifBean): Unit = {
-    searchSalle((salle:SalleBean)=>salle.getId_typeSalle == typeSalle.getId()).foreach((salle:SalleBean)=>deleteSalle(salle))
+    searchSalle((salle: SalleBean) => salle.getId_typeSalle == typeSalle.getId()).foreach((salle: SalleBean) => deleteSalle(salle))
     typeSalleDao.delete(typeSalle)
   }
 
@@ -283,7 +282,7 @@ class Systeme {
   def updateTypeTitre(typeTitre: TarifBean): Unit = typeTitreDao.update(typeTitre)
 
   def deleteTypeTitre(typeTitre: TarifBean): Unit = {
-    searchDemandeur((demandeur:DemandeurBean)=> demandeur.getId_typeTitre == typeTitre.getId()).foreach((demandeur:DemandeurBean)=>deleteDemandeur(demandeur))
+    searchDemandeur((demandeur: DemandeurBean) => demandeur.getId_typeTitre == typeTitre.getId()).foreach((demandeur: DemandeurBean) => deleteDemandeur(demandeur))
     typeTitreDao.delete(typeTitre)
   }
 
