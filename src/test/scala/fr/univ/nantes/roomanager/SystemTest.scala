@@ -9,7 +9,7 @@ import org.junit.{Before, Test}
  */
 @Test
 class SystemTest {
-  var sys : Systeme = _
+  var sys: Systeme = _
 
   @Before
   def init(): Unit = {
@@ -80,8 +80,8 @@ class SystemTest {
 
   @Test
   def demandeurDaoTest1(): Unit = {
-    val dem0: DemandeurBean = sys.createDemandeur(new DemandeurBean(0,0,0, null))
-    val  dem1: DemandeurBean = sys.getDemandeur(dem0.getId())
+    val dem0: DemandeurBean = sys.createDemandeur(new DemandeurBean(0, 0, 0, null))
+    val dem1: DemandeurBean = sys.getDemandeur(dem0.getId())
     assert(dem0.getId() == dem1.getId())
     assert(dem0.getId_adresse == dem1.getId_adresse)
     assert(dem0.getId_typeOrigine == dem1.getId_typeOrigine)
@@ -91,21 +91,21 @@ class SystemTest {
 
   @Test(expected = classOf[Exception])
   def demandeurDaoTest2(): Unit = {
-    val dem0: DemandeurBean = sys.createDemandeur(new DemandeurBean(0,0,0, null))
+    val dem0: DemandeurBean = sys.createDemandeur(new DemandeurBean(0, 0, 0, null))
     sys.deleteDemandeur(dem0)
     sys.getDemandeur(dem0.getId())
   }
 
   @Test(expected = classOf[Exception])
   def demandeurDaoTest3(): Unit = {
-    val dem0: DemandeurBean = new DemandeurBean(0,0,0, null)
+    val dem0: DemandeurBean = new DemandeurBean(0, 0, 0, null)
     sys.createDemandeur(dem0)
     sys.createDemandeur(dem0)
   }
 
   @Test(expected = classOf[Exception])
   def demandeurDaoTest4(): Unit = {
-    val dem0: DemandeurBean = new DemandeurBean(0,0,0, null)
+    val dem0: DemandeurBean = new DemandeurBean(0, 0, 0, null)
     sys.createDemandeur(dem0)
     sys.updateDemandeur(dem0)
   }
@@ -117,7 +117,7 @@ class SystemTest {
 
   @Test
   def materielDaoTest1(): Unit = {
-    val mat0: MaterielBean = sys.createMateriel(new MaterielBean(0,-1,0))
+    val mat0: MaterielBean = sys.createMateriel(new MaterielBean(0, -1, 0))
     val mat1: MaterielBean = sys.getMateriel(mat0.getId())
     assert(mat0.getId() == mat1.getId())
     assert(mat0.getId_reservation == mat1.getId_reservation)
@@ -127,7 +127,7 @@ class SystemTest {
 
   @Test(expected = classOf[Exception])
   def materielDaoTest2(): Unit = {
-    val mat0: MaterielBean = sys.createMateriel(new MaterielBean(0,0,-1))
+    val mat0: MaterielBean = sys.createMateriel(new MaterielBean(0, 0, -1))
     sys.deleteMateriel(mat0)
     sys.getMateriel(mat0.getId())
   }
@@ -139,7 +139,7 @@ class SystemTest {
 
   @Test
   def reservationDaoTest1(): Unit = {
-    val res0: ReservationBean = sys.createReservation(new ReservationBean(0,0,0,0,null))
+    val res0: ReservationBean = sys.createReservation(new ReservationBean(0, 0, 0, 0, null))
     val res1: ReservationBean = sys.getReservation(res0.getId())
     assert(res0.getId() == res1.getId())
     assert(res0.getDateResa == res1.getDateResa)
@@ -152,21 +152,21 @@ class SystemTest {
 
   @Test(expected = classOf[Exception])
   def reservationDaoTest2(): Unit = {
-    val res0: ReservationBean = sys.createReservation(new ReservationBean(0,0,0,0,null))
+    val res0: ReservationBean = sys.createReservation(new ReservationBean(0, 0, 0, 0, null))
     sys.deleteReservation(res0)
     sys.getReservation(res0.getId())
   }
 
   @Test(expected = classOf[Exception])
   def reservationDaoTest3(): Unit = {
-    val res0: ReservationBean = new ReservationBean(0,0,0,0,null)
+    val res0: ReservationBean = new ReservationBean(0, 0, 0, 0, null)
     sys.createReservation(res0)
     sys.createReservation(res0)
   }
 
   @Test(expected = classOf[Exception])
   def reservationDaoTest4(): Unit = {
-    val res0: ReservationBean = new ReservationBean(0,0,0,0,null)
+    val res0: ReservationBean = new ReservationBean(0, 0, 0, 0, null)
     sys.createReservation(res0)
     sys.deleteReservation(res0)
     sys.createReservation(res0)
@@ -179,7 +179,7 @@ class SystemTest {
 
   @Test
   def salleDaoTest1(): Unit = {
-    val sal0: SalleBean = sys.createSalle(new SalleBean(0,0,0,0))
+    val sal0: SalleBean = sys.createSalle(new SalleBean(0, 0, 0, 0))
     val sal1: SalleBean = sys.getSalle(sal0.getId())
     assert(sal0.getId() == sal1.getId())
     assert(sal0.getEtage == sal1.getEtage)
@@ -190,52 +190,229 @@ class SystemTest {
 
   @Test(expected = classOf[Exception])
   def salleDaoTest2(): Unit = {
-    val sal0: SalleBean = sys.createSalle(new SalleBean(0,0,0,0))
+    val sal0: SalleBean = sys.createSalle(new SalleBean(0, 0, 0, 0))
     sys.deleteSalle(sal0)
     sys.getSalle(sal0.getId())
   }
 
-  /*def example(): Unit = {
-    var tarif: TarifBean = new TarifBean(null, 0.0, 1.0)
+  @Test(expected = classOf[Exception])
+  def typeDureeDaoTest0(): Unit = {
+    sys.getTypeDuree(-1)
+  }
 
-    tarif.setLibelle("Demi-journée")
-    typeDureeDao.create(tarif)
-    tarif.setLibelle("Soirée")
-    typeDureeDao.create(tarif)
+  @Test
+  def typeDureeDaoTest1(): Unit = {
+    val tar0: TarifBean = sys.createTypeDuree(new TarifBean(null, 0.0, 0.0))
+    val tar1: TarifBean = sys.getTypeDuree(tar0.getId())
+    assert(tar0.getId() == tar1.getId())
+    assert(tar0.getLibelle == tar1.getLibelle)
+    assert(tar0.getTarifBase == tar1.getTarifBase)
+    assert(tar0.getTarifCoef == tar1.getTarifCoef)
+  }
 
-    tarif.setLibelle("Réunion")
-    typeManifestationDao.create(tarif)
-    tarif.setLibelle("Banquet")
-    typeManifestationDao.create(tarif)
-    tarif.setLibelle("Spectacle")
-    typeManifestationDao.create(tarif)
+  @Test(expected = classOf[Exception])
+  def typeDureeDaoTest2(): Unit = {
+    val tar0: TarifBean = sys.createTypeDuree(new TarifBean(null, 0.0, 0.0))
+    sys.deleteTypeDuree(tar0)
+    sys.getTypeDuree(tar0.getId())
+  }
 
-    tarif.setLibelle("Tableau")
-    typeMaterielDao.create(tarif)
-    tarif.setLibelle("Rétro-projecteur")
-    typeMaterielDao.create(tarif)
-    tarif.setLibelle("Vidéo-projecteur")
-    typeMaterielDao.create(tarif)
+  @Test(expected = classOf[Exception])
+  def typeDureeDaoTest3(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeDuree(tar0)
+    sys.createTypeDuree(tar0)
+  }
 
-    tarif.setLibelle("Résident")
-    typeOrigineDao.create(tarif)
-    tarif.setLibelle("Non résident")
-    typeOrigineDao.create(tarif)
+  @Test(expected = classOf[Exception])
+  def typeDureeDaoTest4(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeDuree(tar0)
+    sys.updateTypeDuree(tar0)
+  }
 
-    tarif.setLibelle("Salle des fêtes")
-    typeSalleDao.create(tarif)
-    tarif.setLibelle("Salle polyvalente")
-    typeSalleDao.create(tarif)
-    tarif.setLibelle("Salle hôtel")
-    typeSalleDao.create(tarif)
-    tarif.setLibelle("Salle restaurant")
-    typeSalleDao.create(tarif)
 
-    tarif.setLibelle("Particulier")
-    typeTitreDao.create(tarif)
-    tarif.setLibelle("Association")
-    typeTitreDao.create(tarif)
-    tarif.setLibelle("Entreprise")
-    typeTitreDao.create(tarif)
-  }*/
+  @Test(expected = classOf[Exception])
+  def typeManifestationDaoTest0(): Unit = {
+    sys.getTypeManifestation(-1)
+  }
+
+  @Test
+  def typeManifestationDaoTest1(): Unit = {
+    val tar0: TarifBean = sys.createTypeManifestation(new TarifBean(null, 0.0, 0.0))
+    val tar1: TarifBean = sys.getTypeManifestation(tar0.getId())
+    assert(tar0.getId() == tar1.getId())
+    assert(tar0.getLibelle == tar1.getLibelle)
+    assert(tar0.getTarifBase == tar1.getTarifBase)
+    assert(tar0.getTarifCoef == tar1.getTarifCoef)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeManifestationDaoTest2(): Unit = {
+    val tar0: TarifBean = sys.createTypeManifestation(new TarifBean(null, 0.0, 0.0))
+    sys.deleteTypeManifestation(tar0)
+    sys.getTypeManifestation(tar0.getId())
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeManifestationDaoTest3(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeManifestation(tar0)
+    sys.createTypeManifestation(tar0)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeManifestationDaoTest4(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeManifestation(tar0)
+    sys.updateTypeManifestation(tar0)
+  }
+
+
+  @Test(expected = classOf[Exception])
+  def typeMaterielDaoTest0(): Unit = {
+    sys.getTypeMateriel(-1)
+  }
+
+  @Test
+  def typeMaterielDaoTest1(): Unit = {
+    val tar0: TarifBean = sys.createTypeMateriel(new TarifBean(null, 0.0, 0.0))
+    val tar1: TarifBean = sys.getTypeMateriel(tar0.getId())
+    assert(tar0.getId() == tar1.getId())
+    assert(tar0.getLibelle == tar1.getLibelle)
+    assert(tar0.getTarifBase == tar1.getTarifBase)
+    assert(tar0.getTarifCoef == tar1.getTarifCoef)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeMaterielDaoTest2(): Unit = {
+    val tar0: TarifBean = sys.createTypeMateriel(new TarifBean(null, 0.0, 0.0))
+    sys.deleteTypeMateriel(tar0)
+    sys.getTypeMateriel(tar0.getId())
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeMaterielDaoTest3(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeMateriel(tar0)
+    sys.createTypeMateriel(tar0)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeMaterielDaoTest4(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeMateriel(tar0)
+    sys.updateTypeMateriel(tar0)
+  }
+
+
+  @Test(expected = classOf[Exception])
+  def typeOrigineDaoTest0(): Unit = {
+    sys.getTypeOrigine(-1)
+  }
+
+  @Test
+  def typeOrigineDaoTest1(): Unit = {
+    val tar0: TarifBean = sys.createTypeOrigine(new TarifBean(null, 0.0, 0.0))
+    val tar1: TarifBean = sys.getTypeOrigine(tar0.getId())
+    assert(tar0.getId() == tar1.getId())
+    assert(tar0.getLibelle == tar1.getLibelle)
+    assert(tar0.getTarifBase == tar1.getTarifBase)
+    assert(tar0.getTarifCoef == tar1.getTarifCoef)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeOrigineDaoTest2(): Unit = {
+    val tar0: TarifBean = sys.createTypeOrigine(new TarifBean(null, 0.0, 0.0))
+    sys.deleteTypeOrigine(tar0)
+    sys.getTypeOrigine(tar0.getId())
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeOrigineDaoTest3(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeOrigine(tar0)
+    sys.createTypeOrigine(tar0)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeOrigineDaoTest4(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeOrigine(tar0)
+    sys.updateTypeOrigine(tar0)
+  }
+
+
+  @Test(expected = classOf[Exception])
+  def typeSalleDaoTest0(): Unit = {
+    sys.getTypeSalle(-1)
+  }
+
+  @Test
+  def typeSalleDaoTest1(): Unit = {
+    val tar0: TarifBean = sys.createTypeSalle(new TarifBean(null, 0.0, 0.0))
+    val tar1: TarifBean = sys.getTypeSalle(tar0.getId())
+    assert(tar0.getId() == tar1.getId())
+    assert(tar0.getLibelle == tar1.getLibelle)
+    assert(tar0.getTarifBase == tar1.getTarifBase)
+    assert(tar0.getTarifCoef == tar1.getTarifCoef)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeSalleDaoTest2(): Unit = {
+    val tar0: TarifBean = sys.createTypeSalle(new TarifBean(null, 0.0, 0.0))
+    sys.deleteTypeSalle(tar0)
+    sys.getTypeSalle(tar0.getId())
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeSalleDaoTest3(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeSalle(tar0)
+    sys.createTypeSalle(tar0)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeSalleDaoTest4(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeSalle(tar0)
+    sys.updateTypeSalle(tar0)
+  }
+
+
+  @Test(expected = classOf[Exception])
+  def typeTitreDaoTest0(): Unit = {
+    sys.getTypeTitre(-1)
+  }
+
+  @Test
+  def typeTitreDaoTest1(): Unit = {
+    val tar0: TarifBean = sys.createTypeTitre(new TarifBean(null, 0.0, 0.0))
+    val tar1: TarifBean = sys.getTypeTitre(tar0.getId())
+    assert(tar0.getId() == tar1.getId())
+    assert(tar0.getLibelle == tar1.getLibelle)
+    assert(tar0.getTarifBase == tar1.getTarifBase)
+    assert(tar0.getTarifCoef == tar1.getTarifCoef)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeTitreDaoTest2(): Unit = {
+    val tar0: TarifBean = sys.createTypeTitre(new TarifBean(null, 0.0, 0.0))
+    sys.deleteTypeTitre(tar0)
+    sys.getTypeTitre(tar0.getId())
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeTitreDaoTest3(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeTitre(tar0)
+    sys.createTypeTitre(tar0)
+  }
+
+  @Test(expected = classOf[Exception])
+  def typeTitreDaoTest4(): Unit = {
+    val tar0: TarifBean = new TarifBean(null, 0.0, 0.0)
+    sys.createTypeTitre(tar0)
+    sys.updateTypeTitre(tar0)
+  }
 }
