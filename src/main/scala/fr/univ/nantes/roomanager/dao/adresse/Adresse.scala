@@ -11,9 +11,7 @@ class Adresse(val id: Int, adresseBean: AdresseBean) extends AdresseBean(adresse
   def uniqueConstraint(other: Any): Boolean = other match {
     case that: AdresseBean =>
       other.isInstanceOf[AdresseBean] &&
-        getAdresse == that.getAdresse &&
-        getCode == that.getCode &&
-        getVille == that.getVille
+        false
     case _ => false
   }
 }
