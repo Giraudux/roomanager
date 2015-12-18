@@ -1,27 +1,26 @@
 
 package fr.univ.nantes.roomanager
 
-import fr.univ.nantes.roomanager.bean.{AdresseBean, TarifBean}
-import fr.univ.nantes.roomanager.dao.adresse.{AdresseDaoImpl, AdresseDao}
-import fr.univ.nantes.roomanager.dao.batiment.{BatimentDaoImpl, BatimentDao}
+import java.util.Calendar
+
+import fr.univ.nantes.roomanager.bean._
+import fr.univ.nantes.roomanager.dao.adresse.{AdresseDao, AdresseDaoImpl}
+import fr.univ.nantes.roomanager.dao.batiment.{BatimentDao, BatimentDaoImpl}
 import fr.univ.nantes.roomanager.dao.demandeur.{DemandeurDao, DemandeurDaoImpl}
 import fr.univ.nantes.roomanager.dao.materiel.{MaterielDao, MaterielDaoImpl}
-import fr.univ.nantes.roomanager.dao.reservation.{ReservationDaoImpl, ReservationDao}
-import fr.univ.nantes.roomanager.dao.salle.{SalleDaoImpl, SalleDao}
-import fr.univ.nantes.roomanager.dao.typeduree.{TypeDureeDaoImpl, TypeDureeDao}
-import fr.univ.nantes.roomanager.dao.typemanifestation.{TypeManifestationDaoImpl, TypeManifestationDao}
+import fr.univ.nantes.roomanager.dao.reservation.{ReservationDao, ReservationDaoImpl}
+import fr.univ.nantes.roomanager.dao.salle.{SalleDao, SalleDaoImpl}
+import fr.univ.nantes.roomanager.dao.typeduree.{TypeDureeDao, TypeDureeDaoImpl}
+import fr.univ.nantes.roomanager.dao.typemanifestation.{TypeManifestationDao, TypeManifestationDaoImpl}
 import fr.univ.nantes.roomanager.dao.typemateriel.{TypeMaterielDao, TypeMaterielDaoImpl}
-import fr.univ.nantes.roomanager.dao.typeorigine.{TypeOrigineDaoImpl, TypeOrigineDao}
+import fr.univ.nantes.roomanager.dao.typeorigine.{TypeOrigineDao, TypeOrigineDaoImpl}
 import fr.univ.nantes.roomanager.dao.typesalle.{TypeSalleDao, TypeSalleDaoImpl}
-import fr.univ.nantes.roomanager.dao.typetitre.{TypeTitreDaoImpl, TypeTitreDao}
+import fr.univ.nantes.roomanager.dao.typetitre.{TypeTitreDao, TypeTitreDaoImpl}
 
 import scala.fr.univ.nantes.roomanager._
 
 
-import java.util.Calendar
-
-
-class Systeme {  
+class Systeme {
   // use storage manager interface ?
   var batiments = Set[Batiment]()
   var demandeurs = Set[Demandeur]()
@@ -77,25 +76,25 @@ class Systeme {
 
   def supprimerBatiment(predicate: Batiment => Boolean) = batiments = batiments.filterNot(predicate)
 
-  def ajouterTypeSalle(s: String,d:Double) = GF.coutTypeSalle += ((s,d))
+  def ajouterTypeSalle(s: String, d: Double) = GF.coutTypeSalle += ((s, d))
 
   def supprimerTypeSalle(s: String) = GF.coutTypeSalle -= s
 
   def consulterTypeSalle() = GF.coutTypeSalle
 
-  def ajouterTypeMateriel(t: String,d:Double) = GF.coutTypeMateriel += ((t,d))
+  def ajouterTypeMateriel(t: String, d: Double) = GF.coutTypeMateriel += ((t, d))
 
   def supprimerTypeMateriel(t: String) = GF.coutTypeMateriel -= t
 
   def consulterTypeMateriel() = GF.coutTypeMateriel
 
-  def ajouterTypeManifestation(t: String,d:Double) = GF.typeManifestation += ((t,d))
+  def ajouterTypeManifestation(t: String, d: Double) = GF.typeManifestation += ((t, d))
 
   def supprimerTypeManifestation(t: String) = GF.typeManifestation -= t
 
   def consulterTypeManifestation() = GF.typeManifestation
 
-  def ajouterTypeDuree(t: String,d:Double) = GF.coutDuree += ((t,d))
+  def ajouterTypeDuree(t: String, d: Double) = GF.coutDuree += ((t, d))
 
   def supprimerTypeDuree(t: String) = GF.coutDuree -= t
 
@@ -111,26 +110,26 @@ class Systeme {
     demandeurs = demandeurs.filterNot(predicate)
   }
 
-  def factureHebdo(d: Demandeur,numSemaine:Int) = {
-    var acc : Double =0
-    rechercherReservations((d2 : Demandeur) => d2==d,(r:Reservation)=> r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine).foreach((r: Reservation) => acc += GF.cout(d, r))
+  def factureHebdo(d: Demandeur, numSemaine: Int) = {
+    var acc: Double = 0
+    rechercherReservations((d2: Demandeur) => d2 == d, (r: Reservation) => r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine).foreach((r: Reservation) => acc += GF.cout(d, r))
     acc
   }
 
-  def tauxOccupationSemaine(predicat : Salle => Boolean, numSemaine:Integer):Double = {
-    var resSalle = rechercherReservations((d:Demandeur)=>true, (r:Reservation)=>predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine ).size
-    resSalle / (7.0 * GF.coutDuree.size)*100.0
+  def tauxOccupationSemaine(predicat: Salle => Boolean, numSemaine: Integer): Double = {
+    var resSalle = rechercherReservations((d: Demandeur) => true, (r: Reservation) => predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine).size
+    resSalle / (7.0 * GF.coutDuree.size) * 100.0
   }
 
-  def PlanningSemaine(predicat : Salle => Boolean, numSemaine:Integer) = {
-    rechercherReservations((d:Demandeur)=>true, (r:Reservation)=>predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine)
+  def PlanningSemaine(predicat: Salle => Boolean, numSemaine: Integer) = {
+    rechercherReservations((d: Demandeur) => true, (r: Reservation) => predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine)
   }
 
 
-/*Une biche a brouté dans ta main l'herbe du savoir. */
-/* L'herbe du savoir commence à se faner */
-/* Mais elle renaitra dans le champs de la connaissance */
-/* THUG LIFE */
+  /*Une biche a brouté dans ta main l'herbe du savoir. */
+  /* L'herbe du savoir commence à se faner */
+  /* Mais elle renaitra dans le champs de la connaissance */
+  /* THUG LIFE */
 
   var adresseDao: AdresseDao = new AdresseDaoImpl()
   var batimentDao: BatimentDao = new BatimentDaoImpl()
@@ -190,22 +189,122 @@ class Systeme {
     tarif.setLibelle("Entreprise")
     typeTitreDao.create(tarif)
   }
-  
-  // reserver salle
-  // consulter reservation
-  // annuler reservation
 
-  //ajouter salle
-  //rechercher salle
-  //maj materiel
-  //supprimer salle
+  def createAdresse(adresse: AdresseBean): AdresseBean = adresseDao.create(adresse)
 
-  //ajouter batiment
-  //rechercher batiment
-  //modifier batiment
-  //supprimer batiment
+  def getAdresse(id: Int): AdresseBean = adresseDao.get(id)
+
+  def deleteAdresse(adresse: AdresseBean): Unit = adresseDao.delete(adresse)
+
+  def createReservation(reservation: ReservationBean): ReservationBean = null
+
+  def getReservation(id: Int): ReservationBean = reservationDao.get(id)
+
+  def getAllReservation(): Traversable[ReservationBean] = reservationDao.getAll()
+
+  def searchReservation(predicate: (ReservationBean) => Boolean): Traversable[ReservationBean] = reservationDao.find(predicate)
+
+  //no update
+  def deleteReservation(reservation: ReservationBean): Unit = reservationDao.delete(reservation)
+
+  def createSalle(salle: SalleBean): SalleBean = salleDao.create(salle)
+
+  def getSalle(id: Int): SalleBean = salleDao.get(id)
+
+  def getAllSalle(): Traversable[SalleBean] = salleDao.getAll()
+
+  def searchSalle(predicate: (SalleBean) => Boolean): Traversable[SalleBean] = salleDao.find(predicate)
+
+  def updateSalle(salle: SalleBean): Unit = salleDao.update(salle)
+
+  def deleteSalle(salle: SalleBean): Unit = salleDao.delete(salle)
+
+  def createBatiment(batiment: BatimentBean): BatimentBean = batimentDao.create(batiment)
+
+  def getBatiment(id: Int): BatimentBean = batimentDao.get(id)
+
+  def getAllBatiment(): Traversable[BatimentBean] = batimentDao.getAll()
+
+  def searchBatiment(predicate: (BatimentBean) => Boolean): Traversable[BatimentBean] = batimentDao.find(predicate)
+
+  def updateBatiment(batiment: BatimentBean): Unit = batimentDao.update(batiment)
+
+  def deleteBatiment(batiment: BatimentBean): Unit = batimentDao.delete(batiment)
+
+  def createDemandeur(demandeur: DemandeurBean): DemandeurBean = demandeurDao.create(demandeur)
+
+  def getDemandeur(id: Int): DemandeurBean = demandeurDao.get(id)
+
+  def getAllDemandeur(): Traversable[DemandeurBean] = demandeurDao.getAll()
+
+  def searchDemandeur(predicate: (DemandeurBean) => Boolean): Traversable[DemandeurBean] = demandeurDao.find(predicate)
+
+  def updateDemandeur(demandeur: DemandeurBean): Unit = demandeurDao.update(demandeur)
+
+  def deleteDemandeur(demandeur: DemandeurBean): Unit = demandeurDao.delete(demandeur)
+
+  def createMateriel(materiel: MaterielBean): MaterielBean = materielDao.create(materiel)
+
+  def getMateriel(id: Int): MaterielBean = materielDao.get(id)
+
+  def getAllMateriel(): Traversable[MaterielBean] = materielDao.getAll()
+
+  def searchMateriel(predicate: (MaterielBean) => Boolean): Traversable[MaterielBean] = materielDao.find(predicate)
+
+  def updateMateriel(materiel: MaterielBean): Unit = materielDao.update(materiel)
+
+  def deleteMateriel(materiel: MaterielBean): Unit = materielDao.delete(materiel)
+
 
   //ajout/suppression/consultation type salle
+  def createTypeDuree(typeDuree: TarifBean): TarifBean = typeDureeDao.create(typeDuree)
+
+  def getTypeDuree(id: Int): TarifBean = typeDureeDao.get(id)
+
+  def getAllTypeDuree(): Traversable[TarifBean] = typeDureeDao.getAll()
+
+  def deleteTypeDuree(typeDuree: TarifBean): Unit = /*check usage*/ typeDureeDao.delete(typeDuree)
+
+  def createTypeManifestation(typeManifestation: TarifBean): TarifBean = typeManifestationDao.create(typeManifestation)
+
+  def getTypeManifestation(id: Int): TarifBean = typeManifestationDao.get(id)
+
+  def getAllTypeManifestation(): Traversable[TarifBean] = typeManifestationDao.getAll()
+
+  def deleteTypeManifestation(typeManifestation: TarifBean): Unit = /*check usage*/ typeManifestationDao.delete(typeManifestation)
+
+  def createTypeMateriel(typeMateriel: TarifBean): TarifBean = typeMaterielDao.create(typeMateriel)
+
+  def getTypeMateriel(id: Int): TarifBean = typeMaterielDao.get(id)
+
+  def getAllTypeMateriel(): Traversable[TarifBean] = typeMaterielDao.getAll()
+
+  def deleteTypeMateriel(typeMateriel: TarifBean): Unit = /*check usage*/ typeMaterielDao.delete(typeMateriel)
+
+  def createTypeOrigine(typeOrigine: TarifBean): TarifBean = typeOrigineDao.create(typeOrigine)
+
+  def getTypeOrigine(id: Int): TarifBean = typeOrigineDao.get(id)
+
+  def getAllTypeOrigine(): Traversable[TarifBean] = typeOrigineDao.getAll()
+
+  def deleteTypeOrigine(typeOrigine: TarifBean): Unit = /*check usage*/ typeOrigineDao.delete(typeOrigine)
+
+  def createTypeSalle(typeSalle: TarifBean): TarifBean = typeSalleDao.create(typeSalle)
+
+  def getTypeSalle(id: Int): TarifBean = typeSalleDao.get(id)
+
+  def getAllTypeSalle(): Traversable[TarifBean] = typeSalleDao.getAll()
+
+  def deleteTypeSalle(typeSalle: TarifBean): Unit = /*check usage*/ typeSalleDao.delete(typeSalle)
+
+  def createTypeTitre(typeTitre: TarifBean): TarifBean = typeTitreDao.create(typeTitre)
+
+  def getTypeTitre(id: Int): TarifBean = typeTitreDao.get(id)
+
+  def getAllTypeTitre(): Traversable[TarifBean] = typeTitreDao.getAll()
+
+  def deleteTypeTitre(typeTitre: TarifBean): Unit = /*check usage*/ typeTitreDao.delete(typeTitre)
+
 
   //gestion demandeur
 
