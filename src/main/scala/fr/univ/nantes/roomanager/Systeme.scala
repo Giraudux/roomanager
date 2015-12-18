@@ -32,9 +32,7 @@ class Systeme {
   var typeOrigineDao: TypeOrigineDao = new TypeOrigineDaoImpl()
   var typeSalleDao: TypeSalleDao = new TypeSalleDaoImpl()
   var typeTitreDao: TypeTitreDao = new TypeTitreDaoImpl()
-
-  init()
-
+  
   def init(): Unit = {
     var tarif: TarifBean = new TarifBean(null, 0.0, 1.0)
 
@@ -94,10 +92,11 @@ class Systeme {
   // gestion des reservations
 
   def createReservation(reservation: ReservationBean): ReservationBean = {
-    if (searchReservation((otherReservation: ReservationBean) => otherReservation.getDateResa.get(Calendar.YEAR) == reservation.getDateResa.get(Calendar.YEAR) &&
-      otherReservation.getDateResa.get(Calendar.DAY_OF_YEAR) == reservation.getDateResa.get(Calendar.DAY_OF_YEAR) &&
-      otherReservation.getId_salle == reservation.getId_salle &&
-      otherReservation.getId_typeDuree == reservation.getId_typeDuree).nonEmpty)
+    if (searchReservation((otherReservation: ReservationBean) =>
+      otherReservation.getDateResa.get(Calendar.YEAR) == reservation.getDateResa.get(Calendar.YEAR) &&
+        otherReservation.getDateResa.get(Calendar.DAY_OF_YEAR) == reservation.getDateResa.get(Calendar.DAY_OF_YEAR) &&
+        otherReservation.getId_salle == reservation.getId_salle &&
+        otherReservation.getId_typeDuree == reservation.getId_typeDuree).nonEmpty)
       throw new Exception()
     reservationDao.create(reservation)
   }
@@ -318,13 +317,15 @@ class Systeme {
     cout
   }
 
-  /*def tauxOccupationHebdo(salle: SalleBean, anne: Int, semaine: Integer): Double = {
-    var resSalle = rechercherReservations((d: Demandeur) => true, (r: Reservation) => predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine).size
-    resSalle / (7.0 * GF.coutDuree.size)
-  }*/
+  def tauxOccupationHebdo(salle: SalleBean, annee: Int, semaine: Integer): Double = {
+    searchReservation((reservation: ReservationBean) => reservation.getId_salle == salle.getId() &&
+      reservation.getDateResa.get(Calendar.YEAR) == annee &&
+      reservation.getDateResa.get(Calendar.WEEK_OF_YEAR) == semaine).size / 7.0 * getAllTypeDuree().size
+  }
 
-  /*def planningSemaine(predicat: Salle => Boolean, numSemaine: Integer) = {
-    rechercherReservations((d: Demandeur) => true, (r: Reservation) => predicat(r.salle) && r.date_resa.get(Calendar.WEEK_OF_YEAR) == numSemaine)
-  }*/
+  def planningHebdo(salle: SalleBean, annee: Int, semaine: Int): Traversable[ReservationBean] = {
+    searchReservation((reservation: ReservationBean) => reservation.getDateResa.get(Calendar.YEAR) == annee &&
+      reservation.getDateResa.get(Calendar.WEEK_OF_YEAR) == semaine)
+  }
 
 }
