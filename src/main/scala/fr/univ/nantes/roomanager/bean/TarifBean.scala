@@ -6,5 +6,5 @@ import scala.beans.BeanProperty
  * @author Pierre Gaultier & Alexis Giraudet
  */
 class TarifBean(@BeanProperty var libelle: String,
-                @BeanProperty var tarifSup: Double,
+                @BeanProperty var tarifBase: Double,
                 @BeanProperty var tarifCoef: Double) extends BaseBean {}

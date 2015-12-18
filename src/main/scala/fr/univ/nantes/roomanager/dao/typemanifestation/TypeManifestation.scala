@@ -5,7 +5,7 @@ import fr.univ.nantes.roomanager.bean.TarifBean
 /**
  * @author Pierre Gaultier & Alexis Giraudet
  */
-class TypeManifestation(val id: Int, typeManifestation: TarifBean) extends TarifBean(typeManifestation.getLibelle, typeManifestation.getTarifSup, typeManifestation.getTarifCoef) {
+class TypeManifestation(val id: Int, typeManifestation: TarifBean) extends TarifBean(typeManifestation.getLibelle, typeManifestation.getTarifBase, typeManifestation.getTarifCoef) {
   override def getId(): Int = id
 
   def uniqueConstraint(other: Any): Boolean = other match {
