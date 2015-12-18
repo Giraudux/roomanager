@@ -18,8 +18,10 @@ class TypeSalleDaoImpl extends TypeSalleDao {
   override def update(typeSalle: TarifBean): Unit = {
     if (typesSalle.contains(typeSalle)) {
       var newTypeSalle: TypeSalle = new TypeSalle(typeSalle.getId(), typeSalle)
-      if (typesSalle.exists((other: TarifBean) => newTypeSalle.uniqueConstraint(other)))
+      if (!typesSalle.exists((other: TarifBean) => newTypeSalle.uniqueConstraint(other)))
         typesSalle += newTypeSalle
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

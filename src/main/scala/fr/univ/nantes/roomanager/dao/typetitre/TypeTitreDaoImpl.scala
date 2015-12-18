@@ -18,8 +18,10 @@ class TypeTitreDaoImpl extends TypeTitreDao {
   override def update(typeTitre: TarifBean): Unit = {
     if (typesTitre.contains(typeTitre)) {
       var newTypeTitre: TypeTitre = new TypeTitre(typeTitre.getId(), typeTitre)
-      if (typesTitre.exists((other: TarifBean) => newTypeTitre.uniqueConstraint(other)))
+      if (!typesTitre.exists((other: TarifBean) => newTypeTitre.uniqueConstraint(other)))
         typesTitre += newTypeTitre
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

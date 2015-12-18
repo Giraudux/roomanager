@@ -18,8 +18,10 @@ class TypeManifestationDaoImpl extends TypeManifestationDao {
   override def update(typeManifestation: TarifBean): Unit = {
     if (typesManifestation.contains(typeManifestation)) {
       var newTypeManifestation: TypeManifestation = new TypeManifestation(typeManifestation.getId(), typeManifestation)
-      if (typesManifestation.exists((other: TarifBean) => newTypeManifestation.uniqueConstraint(other)))
+      if (!typesManifestation.exists((other: TarifBean) => newTypeManifestation.uniqueConstraint(other)))
         typesManifestation += newTypeManifestation
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

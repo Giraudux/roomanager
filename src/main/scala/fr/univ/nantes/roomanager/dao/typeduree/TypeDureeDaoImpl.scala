@@ -18,8 +18,10 @@ class TypeDureeDaoImpl extends TypeDureeDao {
   override def update(typeDuree: TarifBean): Unit = {
     if (typesDuree.contains(typeDuree)) {
       var newTypeDuree: TypeDuree = new TypeDuree(typeDuree.getId(), typeDuree)
-      if (typesDuree.exists((other: TarifBean) => newTypeDuree.uniqueConstraint(other)))
+      if (!typesDuree.exists((other: TarifBean) => newTypeDuree.uniqueConstraint(other)))
         typesDuree += newTypeDuree
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

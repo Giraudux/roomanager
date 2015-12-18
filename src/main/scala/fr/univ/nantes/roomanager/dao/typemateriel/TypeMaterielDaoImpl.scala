@@ -18,8 +18,10 @@ class TypeMaterielDaoImpl extends TypeMaterielDao {
   override def update(typeMateriel: TarifBean): Unit = {
     if (typesMateriel.contains(typeMateriel)) {
       var newTypeMateriel: TypeMateriel = new TypeMateriel(typeMateriel.getId(), typeMateriel)
-      if (typesMateriel.exists((other: TarifBean) => newTypeMateriel.uniqueConstraint(other)))
+      if (!typesMateriel.exists((other: TarifBean) => newTypeMateriel.uniqueConstraint(other)))
         typesMateriel += newTypeMateriel
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

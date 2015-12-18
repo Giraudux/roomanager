@@ -18,8 +18,10 @@ class DemandeurDaoImpl extends DemandeurDao {
   override def update(demandeur: DemandeurBean): Unit = {
     if (demandeurs.contains(demandeur)) {
       var newDemandeur: Demandeur = new Demandeur(demandeur.getId(), demandeur)
-      if (demandeurs.exists((other: DemandeurBean) => newDemandeur.uniqueConstraint(other)))
+      if (!demandeurs.exists((other: DemandeurBean) => newDemandeur.uniqueConstraint(other)))
         demandeurs += newDemandeur
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

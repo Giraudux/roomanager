@@ -18,8 +18,10 @@ class SalleDaoImpl extends SalleDao {
   override def update(salle: SalleBean): Unit = {
     if (salles.contains(salle)) {
       var newSalle: Salle = new Salle(salle.getId(), salle)
-      if (salles.exists((other: SalleBean) => newSalle.uniqueConstraint(other)))
+      if (!salles.exists((other: SalleBean) => newSalle.uniqueConstraint(other)))
         salles += newSalle
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

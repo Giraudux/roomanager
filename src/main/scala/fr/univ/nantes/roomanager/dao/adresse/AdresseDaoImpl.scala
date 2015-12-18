@@ -18,8 +18,10 @@ class AdresseDaoImpl extends AdresseDao {
   override def update(adresse: AdresseBean): Unit = {
     if (adresses.contains(adresse)) {
       var newAdresse: Adresse = new Adresse(adresse.getId(), adresse)
-      if (adresses.exists((other: AdresseBean) => newAdresse.uniqueConstraint(other)))
+      if (!adresses.exists((other: AdresseBean) => newAdresse.uniqueConstraint(other)))
         adresses += newAdresse
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

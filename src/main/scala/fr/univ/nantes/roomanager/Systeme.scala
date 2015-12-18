@@ -36,50 +36,6 @@ class Systeme {
   var typeSalleDao: TypeSalleDao = new TypeSalleDaoImpl()
   var typeTitreDao: TypeTitreDao = new TypeTitreDaoImpl()
 
-  def init(): Unit = {
-    var tarif: TarifBean = new TarifBean(null, 0.0, 1.0)
-
-    tarif.setLibelle("Demi-journée")
-    typeDureeDao.create(tarif)
-    tarif.setLibelle("Soirée")
-    typeDureeDao.create(tarif)
-
-    tarif.setLibelle("Réunion")
-    typeManifestationDao.create(tarif)
-    tarif.setLibelle("Banquet")
-    typeManifestationDao.create(tarif)
-    tarif.setLibelle("Spectacle")
-    typeManifestationDao.create(tarif)
-
-    tarif.setLibelle("Tableau")
-    typeMaterielDao.create(tarif)
-    tarif.setLibelle("Rétro-projecteur")
-    typeMaterielDao.create(tarif)
-    tarif.setLibelle("Vidéo-projecteur")
-    typeMaterielDao.create(tarif)
-
-    tarif.setLibelle("Résident")
-    typeOrigineDao.create(tarif)
-    tarif.setLibelle("Non résident")
-    typeOrigineDao.create(tarif)
-
-    tarif.setLibelle("Salle des fêtes")
-    typeSalleDao.create(tarif)
-    tarif.setLibelle("Salle polyvalente")
-    typeSalleDao.create(tarif)
-    tarif.setLibelle("Salle hôtel")
-    typeSalleDao.create(tarif)
-    tarif.setLibelle("Salle restaurant")
-    typeSalleDao.create(tarif)
-
-    tarif.setLibelle("Particulier")
-    typeTitreDao.create(tarif)
-    tarif.setLibelle("Association")
-    typeTitreDao.create(tarif)
-    tarif.setLibelle("Entreprise")
-    typeTitreDao.create(tarif)
-  }
-
   // gestion des adresses
 
   def createAdresse(adresse: AdresseBean): AdresseBean = adresseDao.create(adresse)

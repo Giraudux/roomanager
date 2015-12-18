@@ -18,8 +18,10 @@ class MaterielDaoImpl extends MaterielDao {
   override def update(materiel: MaterielBean): Unit = {
     if (materiels.contains(materiel)) {
       var newMateriel: Materiel = new Materiel(materiel.getId(), materiel)
-      if (materiels.exists((other: MaterielBean) => newMateriel.uniqueConstraint(other)))
+      if (!materiels.exists((other: MaterielBean) => newMateriel.uniqueConstraint(other)))
         materiels += newMateriel
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

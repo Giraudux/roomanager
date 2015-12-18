@@ -18,8 +18,10 @@ class TypeOrigineDaoImpl extends TypeOrigineDao {
   override def update(typeOrigine: TarifBean): Unit = {
     if (typesOrigine.contains(typeOrigine)) {
       var newTypeOrigine: TypeOrigine = new TypeOrigine(typeOrigine.getId(), typeOrigine)
-      if (typesOrigine.exists((other: TarifBean) => newTypeOrigine.uniqueConstraint(other)))
+      if (!typesOrigine.exists((other: TarifBean) => newTypeOrigine.uniqueConstraint(other)))
         typesOrigine += newTypeOrigine
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

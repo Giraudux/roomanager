@@ -18,8 +18,10 @@ class BatimentDaoImpl extends BatimentDao {
   override def update(batiment: BatimentBean): Unit = {
     if (batiments.contains(batiment)) {
       var newBatiment: Batiment = new Batiment(batiment.getId(), batiment)
-      if (batiments.exists((other: BatimentBean) => newBatiment.uniqueConstraint(other)))
+      if (!batiments.exists((other: BatimentBean) => newBatiment.uniqueConstraint(other)))
         batiments += newBatiment
+      else
+        throw new Exception()
     }
     else
       throw new Exception()

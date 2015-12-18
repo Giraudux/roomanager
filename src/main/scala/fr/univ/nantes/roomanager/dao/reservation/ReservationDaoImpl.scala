@@ -18,8 +18,10 @@ class ReservationDaoImpl extends ReservationDao {
   override def update(reservation: ReservationBean): Unit = {
     if (reservations.contains(reservation)) {
       var newReservation: Reservation = new Reservation(reservation.getId(), reservation)
-      if (reservations.exists((other: ReservationBean) => newReservation.uniqueConstraint(other)))
+      if (!reservations.exists((other: ReservationBean) => newReservation.uniqueConstraint(other)))
         reservations += newReservation
+      else
+        throw new Exception()
     }
     else
       throw new Exception()
